@@ -1,0 +1,233 @@
+@import "tailwindcss";
+
+:root {
+  --sidebar-bg: #101828;
+  --primary-btn: #0F9F94;
+  --primary-btn-hover: #0D827A;
+  --page-bg: #F3F6FA;
+  --card-bg: #FFFFFF;
+  --heading: #101828;
+  --forecast-chart: #6366F1;
+  --highlight: #F4B942;
+}
+
+@layer base {
+  html, body {
+    background-color: #F3F6FA;
+    color: #101828;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  /* Universal Headings Palette Enforcement: #101828 */
+  h1, h2, h3, h4, h5, h6 {
+    color: #101828;
+  }
+
+  .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+    color: #FFFFFF;
+  }
+
+  /* When inside dark navy elements (like sidebar #101828) */
+  aside h1, aside h2, aside h3, aside h4,
+  header .bg-\[\#101828\] h1, header .bg-\[\#101828\] h2 {
+    color: #FFFFFF !important;
+  }
+}
+
+/* Palette utility classes for absolute specificity */
+.bg-page {
+  background-color: #F3F6FA !important;
+}
+
+.bg-sidebar {
+  background-color: #101828 !important;
+}
+
+.bg-card-palette {
+  background-color: #FFFFFF !important;
+}
+
+.text-heading-palette {
+  color: #101828 !important;
+}
+
+.btn-primary-palette,
+button.btn-primary {
+  background-color: #0F9F94 !important;
+  color: #FFFFFF !important;
+  transition: all 0.2s ease-in-out;
+}
+.btn-primary-palette:hover,
+button.btn-primary:hover {
+  background-color: #0D827A !important;
+}
+
+.text-highlight-palette {
+  color: #F4B942 !important;
+}
+.bg-highlight-palette {
+  background-color: #F4B942 !important;
+  color: #101828 !important;
+}
+
+.text-forecast-palette {
+  color: #6366F1 !important;
+}
+.stroke-forecast-palette {
+  stroke: #6366F1 !important;
+}
+.fill-forecast-palette {
+  fill: #6366F1 !important;
+}
+
+/* Custom scrollbar for analytics tables and sidebars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.4);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.7);
+}
+
+/* Government News Ticker Marquee Animation */
+@keyframes marquee {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+.animate-marquee {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee 35s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Print Styles: Clean, printer-friendly PDF output for all charts & data tables */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 10mm 12mm 10mm 12mm;
+  }
+
+  /* Hide navigation, sidebar, mobile bar, ticker, footer controls, print buttons, drawers */
+  header,
+  aside,
+  nav,
+  .no-print,
+  [data-no-print],
+  button:not(.allow-print),
+  .animate-marquee,
+  .animate-pulse,
+  .animate-bounce,
+  .fixed,
+  .sticky {
+    display: none !important;
+  }
+
+  /* Reset layout constraints so everything expands naturally for printing */
+  html, body, #root, main, .print-container {
+    background-color: #FFFFFF !important;
+    background: #FFFFFF !important;
+    color: #101828 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    height: auto !important;
+    min-height: auto !important;
+    font-size: 10pt !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Force print background graphics & colors (charts, cards, badges) */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Clean Paper Cards */
+  .bg-white, [class*="bg-white"], .bg-slate-900, [class*="dark:bg-"] {
+    background-color: #FFFFFF !important;
+    color: #101828 !important;
+    border-color: #E2E8F0 !important;
+    box-shadow: none !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Headings on paper */
+  h1, h2, h3, h4, h5, h6 {
+    color: #101828 !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+
+  /* Tables formatting for paper */
+  table {
+    width: 100% !important;
+    page-break-inside: auto !important;
+    border-collapse: collapse !important;
+    font-size: 8.5pt !important;
+  }
+
+  tr {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  thead {
+    display: table-header-group !important;
+  }
+
+  th {
+    background-color: #F3F6FA !important;
+    color: #101828 !important;
+    border: 1px solid #CBD5E1 !important;
+    padding: 4pt 6pt !important;
+    font-weight: 700 !important;
+  }
+
+  td {
+    border: 1px solid #E2E8F0 !important;
+    padding: 4pt 6pt !important;
+    color: #101828 !important;
+  }
+
+  /* Charts and SVGs */
+  .recharts-responsive-container,
+  .recharts-wrapper,
+  svg {
+    max-width: 100% !important;
+    overflow: visible !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Containers */
+  .grid, .space-y-6, section, article {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Enable visible overflow */
+  .overflow-hidden, .overflow-x-auto, .overflow-y-auto {
+    overflow: visible !important;
+    max-height: none !important;
+  }
+
+  /* Suppress links printing URL destinations */
+  a[href]:after {
+    content: none !important;
+  }
+}
